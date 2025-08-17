@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yossef Salem</title>
+  <meta name="description" content="Portfolio of Yossef Magdy Salem — IT Support Specialist & Aspiring DevOps Engineer in Damietta, Egypt. Windows Server, ESXi, Cisco, Networking, Cloud." />
+  <meta name="author" content="Yossef Magdy Salem" />
+  <meta property="og:title" content="Yossef Magdy Salem — IT Support & DevOps" />
+  <meta property="og:description" content="Systems, Networking, Virtualization, Cloud. Explore my work, skills, and certifications." />
+  <meta property="og:image" content="assets/og-image.png" />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0ea5e9" />
+
+  <!-- Favicon (optional) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛠️</text></svg>">
+
+  <!-- Fonts (system stack for performance) -->
+  <style>
+    :root { --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
+  </style>
+
+  <link rel="stylesheet" href="styles/style.css" />
+  
+  <!-- Theme initialization script - runs immediately -->
+  <script>
+    (function() {
+      try {
+        const themeKey = 'yms-theme';
+        
+        // Check if localStorage is available
+        if (typeof localStorage === 'undefined') {
+          console.warn('localStorage not available');
+          const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', systemTheme);
+          return;
+        }
+        
+        const savedTheme = localStorage.getItem(themeKey);
+        const backupTheme = localStorage.getItem('yms-theme-backup');
+        const html = document.documentElement;
+        
+        console.log('Theme initialization - saved theme:', savedTheme);
+        console.log('Theme initialization - backup theme:', backupTheme);
+        console.log('Theme initialization - localStorage available:', typeof localStorage !== 'undefined');
+        console.log('Theme initialization - all localStorage keys:', Object.keys(localStorage));
+        
+        // Use backup theme if main theme is not available
+        const themeToUse = savedTheme || backupTheme;
+        
+        if (themeToUse) {
+          const theme = JSON.parse(themeToUse);
+          console.log('Theme initialization - parsed theme:', theme);
+          
+          if (theme === 'auto') {
+            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            html.setAttribute('data-theme', systemTheme);
+            console.log('Theme initialization - auto mode, using system theme:', systemTheme);
+          } else {
+            html.setAttribute('data-theme', theme);
+            console.log('Theme initialization - using saved theme:', theme);
+          }
+        } else {
+          // Default to auto if no saved theme
+          const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          html.setAttribute('data-theme', systemTheme);
+          console.log('Theme initialization - no saved theme, using system theme:', systemTheme);
+        }
+        
+        // Prevent any other scripts from overriding this theme
+        window.themeInitialized = true;
+        
+        // Double-check the theme was set correctly
+        setTimeout(() => {
+          const finalTheme = document.documentElement.getAttribute('data-theme');
+          console.log('Theme initialization - final theme after 100ms:', finalTheme);
+        }, 100);
+        
+      } catch (e) {
+        console.warn('Theme initialization failed:', e);
+        // Fallback to auto
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', systemTheme);
+        console.log('Theme initialization - fallback to system theme:', systemTheme);
+      }
+    })();
+  </script>
+</head>
+
+  <body class="no-js">
+  <!-- Progress bar -->
+  <div class="progress" aria-hidden="true"><span class="progress__bar"></span></div>
+
+  <!-- Skip to content -->
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Header / Nav -->
+  <header class="site-header">
+    <div class="container header__row">
+      <a class="logo" href="#hero" aria-label="Home">
+        <span class="logo__dot" aria-hidden="true"></span>
+        <span class="logo__text">Yossef Salem</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <button class="nav__toggle" aria-expanded="false" aria-controls="nav-menu">
+          <span class="sr-only">Toggle menu</span>
+          <div class="burger" aria-hidden="true"></div>
+        </button>
+        <ul id="nav-menu" class="nav__list">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About Me</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#contact">Contact Me</a></li>
+          <li><a href="assets/resume.pdf" target="_blank">Resume ↓</a></li>
+          <li>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme" title="Toggle theme">
+              <span class="theme-toggle__icon" aria-hidden="true">🌙</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section id="hero" class="section hero" aria-label="Hero">
+      <div class="hero__bg" aria-hidden="true"></div>
+        
+        <!-- Animated floating elements -->
+        <div class="hero__floating-elements">
+          <div class="hero__float hero__float--1"></div>
+          <div class="hero__float hero__float--2"></div>
+          <div class="hero__float hero__float--3"></div>
+          <div class="hero__float hero__float--4"></div>
+          <div class="hero__float hero__float--5"></div>
+        </div>
+        
+        <!-- Animated background particles -->
+        <div class="hero__particles">
+          <div class="hero__particle"></div>
+          <div class="hero__particle"></div>
+          <div class="hero__particle"></div>
+          <div class="hero__particle"></div>
+          <div class="hero__particle"></div>
+          <div class="hero__particle"></div>
+        </div>
+        
+        <div class="container hero__content">
+        <div class="hero__text">
+            <p class="hero__greeting" data-animate="fade-up" data-delay="0.2">
+              <span class="char">H</span><span class="char">i</span><span class="char">,</span><span class="char">&nbsp;</span><span class="char">I</span><span class="char">'</span><span class="char">m</span>
+            </p>
+            <h1 class="hero__title" data-animate="fade-up" data-delay="0.4">
+              <span class="accent" data-animate="slide-in" data-delay="0.6">Yossef Salem</span>
+          </h1>
+            <p class="hero__subtitle" data-animate="fade-up" data-delay="0.8">
+              <span class="word">A</span>
+              <span class="word">Passionate</span>
+              <span class="word">IT</span>
+              <span class="word">Engineer</span>
+              <span class="word">&</span>
+              <span class="word">Aspiring</span>
+              <span class="word">DevOps</span>
+              <span class="word">Engineer</span>
+            </p>
+
+            <div class="hero__social" data-animate="fade-up" data-delay="1.0">
+              <a href="mailto:yossefsalem.dev@gmail.com" class="social-icon" aria-label="Email" data-animate="bounce-in" data-delay="1.2">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.364V5.457c0-.904.732-1.636 1.636-1.636h20.728c.904 0 1.636.732 1.636 1.636zM12 13.5L1.636 5.457h20.728L12 13.5z"/>
+                </svg>
+              </a>
+              <a href="https://linkedin.com/in/yossef-salem" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn" data-animate="bounce-in" data-delay="1.4">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+              <a href="https://github.com/yossefsalem0" target="_blank" rel="noopener" class="social-icon" aria-label="GitHub" data-animate="bounce-in" data-delay="1.6">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+            </a>
+          </div>
+
+                          <div class="hero__cta" data-animate="fade-up" data-delay="1.8">
+                <a class="btn btn--primary hero__btn simple-btn" href="#portfolio">
+                  <span class="btn__text">Discover My Projects</span>
+                  <svg class="btn__arrow" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+          </div>
+        </div>
+        
+        <!-- Enhanced scroll indicator -->
+        <div class="scroll-indicator" aria-hidden="true" data-animate="bounce" data-delay="2.0">
+          <div class="scroll-indicator__line"></div>
+          <span>Scroll</span>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section" aria-labelledby="about-title">
+      <div class="container">
+        <header class="section__header">
+          <h2 id="about-title" class="section__title">About Me</h2>
+        </header>
+
+        <div class="about__grid">
+          <div class="about__visual">
+            <div class="avatar-wrap">
+              <img src="assets/avatar.png" alt="Portrait of Yossef Magdy Salem" class="avatar" loading="lazy" />
+              <div class="avatar-ring" aria-hidden="true"></div>
+            </div>
+          </div>
+
+          <div class="about__content">
+            <p class="about__description">
+              Motivated IT Engineer with practical experience in system administration, virtualizaion, and network infrastructure. Currently working at vROOT Company, managing Active Directory, ESXi, Cisco devices, and inter-branch connectivity with certifications in CCNAv7, AWS Cloud Foundation, and MCSA 2019. Actively building a career in DevOps and currently training with Digital Egypt Pioneers initiative to strengthen skills in RHEL, automation, cloud technologies, and modern infrastructure tools.
+            </p>
+
+            <div class="about__tabs">
+              <div class="about__tab-buttons">
+                <button class="about__tab-btn about__tab-btn--active" data-tab="skills">Skills</button>
+                <button class="about__tab-btn" data-tab="experience">Experience</button>
+                <button class="about__tab-btn" data-tab="education">Education</button>
+              </div>
+
+              <div class="about__tab-content">
+                <!-- Skills Tab -->
+                <div class="about__tab-panel about__tab-panel--active" id="skills-tab">
+                  <div class="about__skills">
+                    <div class="about__skill-category">
+                      <h4>Technical Skills</h4>
+                      <p>VMware ESXi, RHEL, Windows Server, Scripting, Docker, NGINX, AWS Cloud, Cisco Routing & Switching, Help Desk Support.</p>
+                    </div>
+                    <div class="about__skill-category">
+                      <h4>Tools & IDEs</h4>
+                      <p>VMware, Git & GitHub, Bash, Putty, WinSCP, VSCode, AWS Management Console, Anydesk.</p>
+                    </div>
+                    <div class="about__skill-category">
+                      <h4>Soft Skills</h4>
+                      <p>Problem-Solving, Teamwork, Communication, Work under pressure, Continuous Learning</p>
+                    </div>
+            </div>
+          </div>
+
+                <!-- Experience Tab -->
+                <div class="about__tab-panel" id="experience-tab">
+                  <div class="about__experience">
+                    <div class="about__exp-category">
+                      <h4>IT Engineer @vROOT</h4>
+                      <p>Jul 2025 - Current</p>
+                    </div>
+            </div>
+          </div>
+
+                <!-- Education Tab -->
+                <div class="about__tab-panel" id="education-tab">
+                  <div class="about__education">
+                    <div class="about__edu-category">
+                      <h4>Damietta University</h4>
+                      <p>Sep 2021 - Jun 2025</p>
+                      <p>B.Sc degree in Computer Science and AI.</p>
+                      <p>Information Technology department</p>
+            </div>
+          </div>
+            </div>
+          </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- PORTFOLIO/PROJECTS -->
+    <section id="portfolio" class="section" aria-labelledby="portfolio-title">
+      <div class="container">
+        <header class="section__header">
+          <h2 id="portfolio-title" class="section__title">My Work</h2>
+        </header>
+
+        <div class="portfolio__grid">
+          <article class="card project">
+            <h3 class="card__title">Inter-Branch VPN with Cisco</h3>
+            <p>Designed secure site-to-site connectivity with VLAN segmentation and ACLs for multi-location business infrastructure.</p>
+            <div class="project__actions">
+              <a class="btn btn--tiny" href="#" aria-disabled="true">Case Study (Soon)</a>
+            </div>
+          </article>
+
+          <article class="card project">
+            <h3 class="card__title">ESXi Automation Scripts</h3>
+            <p>Automated VM provisioning & snapshots using CLI and scripts to improve operational efficiency and reduce manual errors.</p>
+            <div class="project__actions">
+              <a class="btn btn--tiny" href="#" aria-disabled="true">Repo (Soon)</a>
+            </div>
+          </article>
+
+          <article class="card project">
+            <h3 class="card__title">AWS Lab Setup</h3>
+            <p>Hands-on with IAM, EC2, and VPC; documented best practices for cloud infrastructure deployment and management.</p>
+            <div class="project__actions">
+              <a class="btn btn--tiny" href="#" aria-disabled="true">Notes (Soon)</a>
+            </div>
+          </article>
+
+          <article class="card project">
+            <h3 class="card__title">Active Directory Management</h3>
+            <p>Comprehensive user and group management system with automated provisioning and security policies implementation.</p>
+            <div class="project__actions">
+              <a class="btn btn--tiny" href="#" aria-disabled="true">Documentation (Soon)</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="portfolio__more">
+          <a href="#" class="btn btn--ghost">See More</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section contact-section" aria-labelledby="contact-title">
+      <!-- Animated background -->
+      <div class="contact__bg">
+        <div class="contact__bg-circle contact__bg-circle--1"></div>
+        <div class="contact__bg-circle contact__bg-circle--2"></div>
+        <div class="contact__bg-circle contact__bg-circle--3"></div>
+        <div class="contact__bg-particles">
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+        </div>
+      </div>
+      
+      <div class="container">
+        <header class="section__header">
+          <h2 id="contact-title" class="section__title">Contact Me</h2>
+          <p class="section__subtitle">Let's work together! Send me a message and I'll get back to you soon.</p>
+        </header>
+
+        <div class="contact__container">
+          <form id="contact-form" class="contact__form" novalidate>
+            <div class="contact__field">
+              <div class="field__wrapper">
+                <input id="name" name="name" autocomplete="name" required placeholder=" " />
+                <label for="name">Your Name</label>
+                <div class="field__line"></div>
+              </div>
+            <span class="error" aria-live="polite"></span>
+          </div>
+
+            <div class="contact__field">
+              <div class="field__wrapper">
+                <input id="email" name="email" type="email" autocomplete="email" required placeholder=" " />
+                <label for="email">Your Email</label>
+                <div class="field__line"></div>
+              </div>
+            <span class="error" aria-live="polite"></span>
+          </div>
+
+            <div class="contact__field">
+              <div class="field__wrapper">
+                <textarea id="message" name="message" rows="5" minlength="10" required placeholder=" "></textarea>
+                <label for="message">Your Message</label>
+                <div class="field__line"></div>
+              </div>
+            <span class="error" aria-live="polite"></span>
+          </div>
+
+          <div class="contact__actions">
+              <button class="btn btn--primary contact__submit" type="submit">
+                <span>Send Message</span>
+                <svg class="btn__icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer__grid">
+      <p>Copyright © <a href="https://linkedin.com/in/yossef-salem" target="_blank" rel="noopener" class="footer__name">Yossef Salem</a> 2025. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Decorative SVGs (inline for performance) -->
+  <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+        <stop offset="0%" stop-color="#22d3ee"/>
+        <stop offset="100%" stop-color="#3b82f6"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- Enhanced JavaScript with Animations -->
+  <script>
+    
+    // Remove no-js class when JavaScript loads
+    document.body.classList.remove('no-js');
+    
+    // Animation system
+    const animationObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const element = entry.target;
+          const animation = element.getAttribute('data-animate');
+          const delay = parseFloat(element.getAttribute('data-delay')) || 0;
+          
+          setTimeout(() => {
+            element.classList.add(`animate--${animation}`);
+          }, delay * 1000);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    // Observe all animated elements
+    document.querySelectorAll('[data-animate]').forEach(el => {
+      animationObserver.observe(el);
+    });
+    
+    // Simple theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        document.documentElement.setAttribute('data-theme', 
+          document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light'
+        );
+      });
+    }
+    
+    // Simple mobile menu toggle
+    const navToggle = document.querySelector('.nav__toggle');
+    const navMenu = document.getElementById('nav-menu');
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', () => {
+        const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+        navToggle.setAttribute('aria-expanded', !isExpanded);
+        navMenu.classList.toggle('is-open');
+      });
+      
+      // Close menu when clicking on a link
+      navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navToggle.setAttribute('aria-expanded', 'false');
+          navMenu.classList.remove('is-open');
+        });
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+          navToggle.setAttribute('aria-expanded', 'false');
+          navMenu.classList.remove('is-open');
+        }
+      });
+    }
+    
+    // Simple smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+    
+    // About tabs functionality
+    const tabButtons = document.querySelectorAll('.about__tab-btn');
+    const tabPanels = document.querySelectorAll('.about__tab-panel');
+    
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const targetTab = button.getAttribute('data-tab');
+        
+        // Don't do anything if the tab is already active
+        if (button.classList.contains('about__tab-btn--active')) {
+          return;
+        }
+        
+        // Remove active class from all buttons and panels
+        tabButtons.forEach(btn => btn.classList.remove('about__tab-btn--active'));
+        tabPanels.forEach(panel => panel.classList.remove('about__tab-panel--active'));
+        
+        // Add active class to clicked button and corresponding panel
+        button.classList.add('about__tab-btn--active');
+        const targetPanel = document.getElementById(`${targetTab}-tab`);
+        if (targetPanel) {
+          targetPanel.classList.add('about__tab-panel--active');
+        }
+      });
+    });
+
+    // Enhanced smooth scrolling with special handling for home
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          if (this.getAttribute('href') === '#hero') {
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            });
+          } else {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }
+      });
+    });
+
+    // Add floating animation to hero elements
+    const heroFloats = document.querySelectorAll('.hero__float');
+    heroFloats.forEach((float, index) => {
+      float.style.animationDelay = `${index * 0.5}s`;
+    });
+
+    // Add particle animation to hero particles
+    const heroParticles = document.querySelectorAll('.hero__particle');
+    heroParticles.forEach((particle, index) => {
+      particle.style.animationDelay = `${index * 0.8}s`;
+    });
+
+    // Enhanced scroll indicator functionality
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    if (scrollIndicator) {
+      scrollIndicator.addEventListener('click', () => {
+        document.querySelector('#about').scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      });
+    }
+  </script>
+</body>
+</html>
