@@ -676,7 +676,8 @@ const isLowEndDevice = () => {
   const isMobile = window.innerWidth <= 768;
   const hasReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   
-  return isSlowConnection || (isMobile && hasReducedMotion);
+  // Only disable animations for very slow connections or explicit reduced motion preference
+  return isSlowConnection || hasReducedMotion;
 };
 
 // Initialize all
