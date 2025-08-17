@@ -669,20 +669,56 @@ function initLoadingScreen() {
   }, 3500);
 }
 
-// Performance detection
+// Enhanced performance detection
 const isLowEndDevice = () => {
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
   const isSlowConnection = connection && (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g');
   const isMobile = window.innerWidth <= 768;
   const hasReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   
-  // Only disable animations for very slow connections or explicit reduced motion preference
-  return isSlowConnection || hasReducedMotion;
+  // Enhanced detection for better mobile performance
+  return isSlowConnection || hasReducedMotion || (isMobile && isTouchDevice && connection?.effectiveType === '3g');
+};
+
+// Mobile-specific optimizations
+const initMobileOptimizations = () => {
+  const isMobile = window.innerWidth <= 768;
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  
+  if (isMobile || isTouchDevice) {
+    // Optimize scroll performance
+    document.documentElement.style.scrollBehavior = 'auto';
+    
+    // Reduce animation complexity on mobile
+    const style = document.createElement('style');
+    style.textContent = `
+      @media (max-width: 768px) {
+        * {
+          animation-duration: 0.6s !important;
+          transition-duration: 0.2s !important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // Optimize images for mobile
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+      if (img.dataset.mobileSrc) {
+        img.src = img.dataset.mobileSrc;
+      }
+    });
+  }
 };
 
 // Initialize all
 document.addEventListener("DOMContentLoaded", () => {
   console.log('DOM Content Loaded - Starting initialization...');
+  
+  // Initialize mobile optimizations first
+  initMobileOptimizations();
+  console.log('Mobile optimizations initialized');
   
   // Performance mode detection
   const performanceMode = isLowEndDevice();

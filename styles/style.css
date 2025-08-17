@@ -30,6 +30,63 @@ html { scroll-behavior: smooth; }
   will-change: auto;
 }
 
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+  /* Increase touch targets on touch devices */
+  .btn,
+  .nav__list a,
+  .social-icon,
+  .theme-toggle {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Disable hover effects on touch devices */
+  .btn:hover::before,
+  .nav__list a:hover,
+  .social-icon:hover,
+  .theme-toggle:hover {
+    transform: none;
+  }
+  
+  /* Add active states for touch feedback */
+  .btn:active,
+  .nav__list a:active,
+  .social-icon:active,
+  .theme-toggle:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Keep essential animations but make them instant */
+  .nav__list.is-open {
+    transition: none !important;
+  }
+  
+  .hero__greeting,
+  .hero__title,
+  .hero__subtitle,
+  .hero__social,
+  .hero__cta,
+  .social-icon {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 /* Disable animations on low-end devices */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -42,8 +99,13 @@ html { scroll-behavior: smooth; }
   }
 }
 
+/* =========
+   MOBILE RESPONSIVENESS & PERFORMANCE
+   ========= */
+
 /* Performance-based animation disabling */
 @media (max-width: 768px) {
+  /* Disable heavy animations on mobile */
   .hero__floating-elements,
   .hero__particles,
   .loading-circle,
@@ -51,34 +113,111 @@ html { scroll-behavior: smooth; }
     display: none !important;
   }
   
+  /* Optimize animations for mobile */
+  * {
+    animation-duration: 0.6s !important;
+    transition-duration: 0.2s !important;
+  }
+  
   /* Mobile-specific animations that work without GSAP */
   .hero__greeting {
-    animation: mobileSlideInLeft 1s var(--bounce) 0.2s both;
+    animation: mobileSlideInLeft 0.8s var(--bounce) 0.1s both;
   }
   
   .hero__title {
-    animation: mobileSlideInLeft 1s var(--bounce) 0.4s both;
+    animation: mobileSlideInLeft 0.8s var(--bounce) 0.3s both;
   }
   
   .hero__subtitle {
-    animation: mobileSlideInLeft 1s var(--bounce) 0.6s both;
+    animation: mobileSlideInLeft 0.8s var(--bounce) 0.5s both;
   }
   
   .hero__social {
-    animation: mobileSlideInLeft 1s var(--bounce) 0.8s both;
+    animation: mobileSlideInLeft 0.8s var(--bounce) 0.7s both;
   }
   
   .hero__cta {
-    animation: mobileSlideInLeft 1s var(--bounce) 1.0s both;
+    animation: mobileSlideInLeft 0.8s var(--bounce) 0.9s both;
   }
   
   .social-icon {
-    animation: mobileBounceIn 0.6s var(--bounce) forwards;
+    animation: mobileBounceIn 0.5s var(--bounce) forwards;
   }
   
-  .social-icon:nth-child(1) { animation-delay: 1.2s; }
-  .social-icon:nth-child(2) { animation-delay: 1.4s; }
-  .social-icon:nth-child(3) { animation-delay: 1.6s; }
+  .social-icon:nth-child(1) { animation-delay: 1.0s; }
+  .social-icon:nth-child(2) { animation-delay: 1.2s; }
+  .social-icon:nth-child(3) { animation-delay: 1.4s; }
+}
+
+/* Enhanced mobile breakpoints */
+@media (max-width: 480px) {
+  /* Extra small devices */
+  :root {
+    --space: 16px;
+    --container-padding: 16px;
+  }
+  
+  .container {
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+  
+  .hero__title {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  
+  .hero__subtitle {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  
+  .btn {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+  
+  .social-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .nav__list {
+    top: 60px;
+    padding: 16px;
+    gap: 8px;
+  }
+  
+  .nav__list a {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 360px) {
+  /* Very small devices */
+  :root {
+    --space: 12px;
+    --container-padding: 12px;
+  }
+  
+  .hero__title {
+    font-size: 1.75rem;
+  }
+  
+  .hero__subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .btn {
+    padding: 8px 14px;
+    font-size: 0.85rem;
+  }
+  
+  .social-icon {
+    width: 36px;
+    height: 36px;
+  }
 }
 
 @keyframes mobileSlideInLeft {
@@ -659,17 +798,35 @@ p { color: var(--text-soft); }
 
 /* Mobile nav */
 @media (max-width: 860px) {
-  .nav__toggle { display: grid; place-items: center; }
+  .nav__toggle { 
+    display: grid; 
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: color-mix(in oklab, var(--panel), transparent 50%);
+    border: 1px solid color-mix(in oklab, var(--muted), transparent 60%);
+    transition: all 0.2s var(--smooth);
+  }
+  
+  .nav__toggle:hover {
+    background: color-mix(in oklab, var(--panel), transparent 30%);
+    transform: scale(1.05);
+  }
+  
   .nav__list {
-    position: absolute; 
-    top: 64px; 
+    position: fixed; 
+    top: 70px; 
     right: var(--space); 
     left: var(--space);
+    max-height: calc(100vh - 90px);
+    overflow-y: auto;
     display: grid; 
-    gap: 10px;
+    gap: 8px;
     padding: 20px; 
     border-radius: 16px;
     background: var(--panel); 
+    backdrop-filter: blur(10px);
     box-shadow: var(--shadow-1);
     transform-origin: top right; 
     transform: scale(.95) translateY(-10px); 
@@ -677,7 +834,9 @@ p { color: var(--text-soft); }
     pointer-events: none;
     transition: all 0.3s var(--bounce);
     border: 1px solid color-mix(in oklab, var(--muted), transparent 70%);
+    z-index: 1000;
   }
+  
   .nav__list.is-open { 
     transform: scale(1) translateY(0); 
     opacity: 1; 
@@ -685,13 +844,47 @@ p { color: var(--text-soft); }
   }
   
   .nav__list a {
-    padding: 12px 16px;
+    padding: 14px 16px;
     text-align: center;
     border-radius: 12px;
+    font-weight: 500;
+    transition: all 0.2s var(--smooth);
+  }
+  
+  .nav__list a:hover {
+    background: color-mix(in oklab, var(--accent), transparent 10%);
+    transform: translateY(-1px);
   }
   
   .nav__list a::before {
     display: none;
+  }
+  
+  /* Theme toggle in mobile nav */
+  .nav__list .theme-toggle {
+    justify-self: center;
+    margin-top: 8px;
+  }
+}
+
+/* Enhanced mobile nav for smaller screens */
+@media (max-width: 480px) {
+  .nav__list {
+    top: 65px;
+    right: 12px;
+    left: 12px;
+    padding: 16px;
+    gap: 6px;
+  }
+  
+  .nav__list a {
+    padding: 12px 14px;
+    font-size: 0.9rem;
+  }
+  
+  .nav__toggle {
+    width: 40px;
+    height: 40px;
   }
 }
 
@@ -2662,6 +2855,68 @@ html {
 .card:hover .skill__icon,
 .card:hover .skill__icon--emoji {
   transform: scale(1.1) rotate(5deg);
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  /* Improve text readability on mobile */
+  body {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
+  
+  /* Optimize container spacing */
+  .container {
+    padding-left: var(--space);
+    padding-right: var(--space);
+  }
+  
+  /* Improve button touch targets */
+  .btn {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Optimize card layouts for mobile */
+  .skills__grid,
+  .portfolio__grid,
+  .certs__grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  
+  /* Improve form elements on mobile */
+  input, textarea, select {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 12px 16px;
+  }
+  
+  /* Optimize hero section for mobile */
+  .hero {
+    min-height: 100vh;
+    padding: 80px 0 40px;
+  }
+  
+  .hero__content {
+    text-align: center;
+    padding: 0 var(--space);
+  }
+  
+  /* Improve social icons spacing */
+  .hero__social {
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  /* Optimize navigation for mobile */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+  }
 }
 
 /* Staggered animations for grid items */
