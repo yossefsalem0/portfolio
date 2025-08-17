@@ -599,9 +599,24 @@ function initLoadingScreen() {
   }, 3500);
 }
 
+// Performance detection
+const isLowEndDevice = () => {
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  const isSlowConnection = connection && (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g');
+  const isMobile = window.innerWidth <= 768;
+  const hasReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  
+  return isSlowConnection || (isMobile && hasReducedMotion);
+};
+
 // Initialize all
 document.addEventListener("DOMContentLoaded", () => {
   console.log('DOM Content Loaded - Starting initialization...');
+  
+  // Performance mode detection
+  const performanceMode = isLowEndDevice();
+  console.log('Performance mode:', performanceMode ? 'low-end' : 'high-end');
+  
   try {
     initLoadingScreen();
     console.log('Loading screen initialized');
@@ -609,36 +624,50 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log('Theme toggle initialized');
     initNav();
     console.log('Navigation initialized');
-    initParallax();
-    console.log('Parallax initialized');
+    
+    // Only initialize heavy features on high-end devices
+    if (!performanceMode) {
+      initParallax();
+      console.log('Parallax initialized');
+      initScrollAnimations();
+      console.log('Scroll animations initialized');
+      initCardHoverEffects();
+      console.log('Card hover effects initialized');
+      initTypingEffect();
+      console.log('Typing effect initialized');
+    } else {
+      console.log('Skipping heavy animations for performance');
+    }
+    
     initScrollProgress();
     console.log('Scroll progress initialized');
     setYear();
     console.log('Year set');
     initContactForm();
     console.log('Contact form initialized');
-    initScrollAnimations();
-    console.log('Scroll animations initialized');
     initSmoothScrolling();
     console.log('Smooth scrolling initialized');
-    initCardHoverEffects();
-    console.log('Card hover effects initialized');
-    initTypingEffect();
-    console.log('Typing effect initialized');
     
-    // Initialize GSAP animations after a short delay
-    setTimeout(() => {
-      try {
-        initGSAPAnimations();
-        console.log('GSAP animations initialized');
-      } catch (error) {
-        console.warn('GSAP animations failed:', error);
-        // Fallback: add animate class to all elements
-        document.querySelectorAll('[data-animate]').forEach(el => {
-          setTimeout(() => el.classList.add('animate'), Math.random() * 1000);
-        });
-      }
-    }, 100);
+    // Initialize GSAP animations only on high-end devices
+    if (!performanceMode) {
+      setTimeout(() => {
+        try {
+          initGSAPAnimations();
+          console.log('GSAP animations initialized');
+        } catch (error) {
+          console.warn('GSAP animations failed:', error);
+          // Fallback: add animate class to all elements
+          document.querySelectorAll('[data-animate]').forEach(el => {
+            setTimeout(() => el.classList.add('animate'), Math.random() * 1000);
+          });
+        }
+      }, 100);
+    } else {
+      // Simple fallback animations for low-end devices
+      document.querySelectorAll('[data-animate]').forEach(el => {
+        el.classList.add('animate');
+      });
+    }
     
     // Add loading animation class
     document.body.classList.add('loaded');

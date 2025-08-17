@@ -7,6 +7,34 @@
 
 html { scroll-behavior: smooth; }
 
+/* Performance optimizations */
+* {
+  /* Optimize animations for performance */
+  will-change: auto;
+}
+
+/* Disable animations on low-end devices */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Performance-based animation disabling */
+@media (max-width: 768px) {
+  .hero__floating-elements,
+  .hero__particles,
+  .loading-circle,
+  .btn__splash-rings {
+    display: none !important;
+  }
+}
+
 /* Ensure sections are visible by default */
 .section {
   opacity: 1;
