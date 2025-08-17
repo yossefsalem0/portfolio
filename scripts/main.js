@@ -250,6 +250,76 @@ function initThemeToggle() {
   });
 }
 
+// Enhanced tab animations
+function initTabAnimations() {
+  const tabButtons = document.querySelectorAll('.about__tab-btn');
+  const tabPanels = document.querySelectorAll('.about__tab-panel');
+  
+  if (!tabButtons.length || !tabPanels.length) return;
+  
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const targetTab = button.getAttribute('data-tab');
+      
+      // Remove active class from all buttons and panels
+      tabButtons.forEach(btn => btn.classList.remove('about__tab-btn--active'));
+      tabPanels.forEach(panel => panel.classList.remove('about__tab-panel--active'));
+      
+      // Add active class to clicked button
+      button.classList.add('about__tab-btn--active');
+      
+      // Find and activate target panel
+      const targetPanel = document.getElementById(`${targetTab}-tab`);
+      if (targetPanel) {
+        targetPanel.classList.add('about__tab-panel--active');
+        
+        // Add click animation to button
+        button.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          button.style.transform = '';
+        }, 150);
+        
+        // Animate content if GSAP is available
+        if (typeof gsap !== 'undefined' && !isLowEndDevice()) {
+          const contentElements = targetPanel.querySelectorAll('.about__skill-category, .about__exp-category, .about__edu-category');
+          
+          gsap.set(contentElements, { opacity: 0, y: 20 });
+          gsap.to(contentElements, {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: "back.out(1.7)"
+          });
+        }
+      }
+    });
+  });
+  
+  // Add hover effects for tab buttons
+  tabButtons.forEach(button => {
+    button.addEventListener('mouseenter', () => {
+      if (typeof gsap !== 'undefined' && !isLowEndDevice()) {
+        gsap.to(button, {
+          scale: 1.05,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      }
+    });
+    
+    button.addEventListener('mouseleave', () => {
+      if (typeof gsap !== 'undefined' && !isLowEndDevice()) {
+        gsap.to(button, {
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      }
+    });
+  });
+}
+
 // Mobile nav with enhanced animations
 function initNav() {
   const toggle = document.querySelector(".nav__toggle");
@@ -624,6 +694,8 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log('Theme toggle initialized');
     initNav();
     console.log('Navigation initialized');
+    initTabAnimations();
+    console.log('Tab animations initialized');
     
     // Only initialize heavy features on high-end devices
     if (!performanceMode) {

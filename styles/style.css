@@ -1646,6 +1646,7 @@ p { color: var(--text-soft); }
   gap: 8px;
   margin-bottom: 24px;
   border-bottom: 2px solid color-mix(in oklab, var(--muted), transparent 70%);
+  position: relative;
 }
 
 .about__tab-btn {
@@ -1656,16 +1657,33 @@ p { color: var(--text-soft); }
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s var(--smooth);
+  transition: all 0.4s var(--bounce);
   border-bottom: 2px solid transparent;
   margin-bottom: -2px;
   outline: none;
   border-radius: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.about__tab-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(14,165,233,0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.about__tab-btn:hover::before {
+  left: 100%;
 }
 
 .about__tab-btn:hover {
   color: var(--text);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .about__tab-btn:active {
@@ -1685,24 +1703,74 @@ p { color: var(--text-soft); }
 .about__tab-btn--active {
   color: var(--accent);
   border-bottom-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.about__tab-btn--active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  animation: tabGlow 2s ease-in-out infinite;
+}
+
+@keyframes tabGlow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
 
 .about__tab-content {
   position: relative;
   min-height: 200px;
+  overflow: hidden;
 }
 
 .about__tab-panel {
-  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.3s ease-in-out;
+  transform: translateX(30px);
+  transition: all 0.5s var(--bounce);
+  pointer-events: none;
 }
 
 .about__tab-panel--active {
-  display: block;
+  position: relative;
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+/* Tab content animations */
+.about__tab-panel--active .about__skill-category,
+.about__tab-panel--active .about__exp-category,
+.about__tab-panel--active .about__edu-category {
+  animation: tabContentSlideIn 0.6s var(--bounce) forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.about__tab-panel--active .about__skill-category:nth-child(1) { animation-delay: 0.1s; }
+.about__tab-panel--active .about__skill-category:nth-child(2) { animation-delay: 0.2s; }
+.about__tab-panel--active .about__skill-category:nth-child(3) { animation-delay: 0.3s; }
+
+.about__tab-panel--active .about__exp-category:nth-child(1) { animation-delay: 0.1s; }
+.about__tab-panel--active .about__edu-category:nth-child(1) { animation-delay: 0.1s; }
+
+@keyframes tabContentSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Skills Tab Content */
@@ -2370,10 +2438,20 @@ p { color: var(--text-soft); }
     border-bottom: none;
     border-left: 3px solid transparent;
     margin-bottom: 0;
+    padding: 16px 20px;
   }
   .about__tab-btn--active {
     border-left-color: var(--accent);
     border-bottom-color: transparent;
+  }
+  .about__tab-btn--active::after {
+    display: none;
+  }
+  .about__tab-panel {
+    transform: translateY(20px);
+  }
+  .about__tab-panel--active {
+    transform: translateY(0);
   }
   .skills__grid, .certs__grid, .projects__grid, .portfolio__grid {
     grid-template-columns: 1fr;
