@@ -18,6 +18,10 @@ html { scroll-behavior: smooth; }
   clip: rect(0, 0, 0, 0) !important;
   white-space: nowrap !important;
   border: 0 !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 /* Performance optimizations */
